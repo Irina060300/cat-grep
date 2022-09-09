@@ -81,16 +81,18 @@ void cat_s(char strs[][10000], int *len) {
                     strs[i][j] = strs[i + 1][j];
                 }
                 strs[i][j] = '\0';
-                // printf("%s", strs[i]);
             }
 
             *len = *len - 1;
-            // for (i = 0; i < *len; i++) {
-            //     printf("%6d\t%s", i + 1, strs[i]);
-            // }
-            // count++;
-            // if (count == 6) break;
         } else
             break;
+    }
+}
+
+void cat_E(char strs[][10000], int len) {
+    for (int i = 0; i < len; i++) {
+        int len_str;
+        len_str = strlen(strs[i]);
+        strs[i][len_str - 2] = '$';
     }
 }

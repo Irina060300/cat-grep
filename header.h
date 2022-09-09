@@ -17,5 +17,5 @@ typedef struct cat_flags {
 int init_struct(char *argv[], cat_flags *cat_flags, int argc);
 void create_str(char strs[][10000], FILE *file, int *i);
 void cat_s(char strs[][10000], int *len);
-
+void cat_E(char strs[][10000], int len);
 #endif  //  HEADER_H_

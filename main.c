@@ -1,6 +1,5 @@
 #include "header.h"
 
-
 int main(int argc, char *argv[]) {
     if (argc >= 2) {
         cat_flags cat_flags;
@@ -13,9 +12,10 @@ int main(int argc, char *argv[]) {
                 create_str(strs, file, &len);
                 // len += 1;
                 cat_s(strs, &len);
+                cat_E(strs, len);
                 // int h = 0;
                 for (int i = 0; i < len; i++) {
-                    printf("%6d\t%s", i + 1, strs[i]);
+                    printf("%s", strs[i]);
                 }
             }
 
