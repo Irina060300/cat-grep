@@ -88,11 +88,27 @@ void cat_s(char strs[][10000], int *len) {
             break;
     }
 }
-
 void cat_E(char strs[][10000], int len) {
     for (int i = 0; i < len; i++) {
         int len_str;
         len_str = strlen(strs[i]);
         strs[i][len_str - 2] = '$';
+    }
+}
+
+void cat_T(char strs[][10000], int len) {
+    for (int i = 0; i < len; i++) {
+        for (int j = 0; j < strlen(strs[i]); j++) {
+            if (strs[i][j] == ' ' && strs[i][j + 1] == ' ' && strs[i][j + 2] == ' ' 
+            && strs[i][j + 3] == ' ') {
+                strs[i][j] = '^';
+                strs[i][j + 1] = 'I';
+                int k;
+                for (k = j + 2; k < strlen(strs[i]) - 2; k++) {
+                    strs[i][k] = strs[i][k + 2];
+                }
+                strs[i][k] = '\0';
+            }
+        }
     }
 }
