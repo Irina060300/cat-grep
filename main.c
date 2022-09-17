@@ -13,12 +13,12 @@ int main(int argc, char *argv[]) {
                 // len += 1;
                 create_str(strs, file, &len);
                 if (cat_flags.s == 1) cat_s(strs, &len);
-                if (cat_flags.E == 1) cat_E(strs, len);
                 if (cat_flags.T == 1) cat_T(strs, len);
+                if (cat_flags.E == 1) cat_E(strs, len);
                 int h = 0;
                 for (int i = 0; i < len; i++) {
                     if (cat_flags.b == 1) {
-                        if (strs[i][1] == '\n' || (strs[i][1] == '$' && strs[i][1] == '\n')) {
+                        if (strs[i][0] == '\n' || (strs[i][0] == '$' && strs[i][1] == '\n')) {
                             printf("%s", strs[i]);
                         } else {
                             printf("%6d\t%s", h + 1, strs[i]);

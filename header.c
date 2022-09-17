@@ -48,8 +48,6 @@ void create_str(char strs[][10000], FILE *file, int *i) {
         if (feof(file) != 0) {
             if (estr == NULL) {
                 break;
-            } else {
-                printf("Read mistake");
             }
         }
         for (int j = 0; j < strlen(estr); j++) {
@@ -66,11 +64,11 @@ void cat_s(char strs[][10000], int *len) {
     while (1) {
         flag = 0;
         for (i = 0; i < *len - 1; i++) {
-            if (strs[i][1] == '\n' && strs[i + 1][1] == '\n') flag++;
+            if ((strs[i][0] == '\n' && strs[i + 1][0] == '\n')) flag++;
         }
         if (flag > 0) {
             for (i = 0; i < *len - 1; i++) {
-                if (strs[i][1] == '\n' && strs[i + 1][1] == '\n') {
+                if (strs[i][0] == '\n' && strs[i + 1][0] == '\n') {
                     h = i + 1;
                     break;
                 }
@@ -81,6 +79,9 @@ void cat_s(char strs[][10000], int *len) {
                     strs[i][j] = strs[i + 1][j];
                 }
                 strs[i][j] = '\0';
+                // for (j = j + 1; j < strlen(strs[i]); j++) {
+                //     strs[i][j] = '\0';
+                // }
             }
 
             *len = *len - 1;
@@ -92,22 +93,32 @@ void cat_E(char strs[][10000], int len) {
     for (int i = 0; i < len; i++) {
         int len_str;
         len_str = strlen(strs[i]);
-        strs[i][len_str - 2] = '$';
+        if (strs[i][len_str - 1] == '\n') {
+            strs[i][len_str - 1] = '$';
+            strs[i][len_str] = '\n';
+            strs[i][len_str + 1] = '\0';
+        } else {
+            // printf("%s", strs[i]);
+            strs[i][len_str] = '$';
+            strs[i][len_str + 1] = '\0';
+        }
     }
 }
 
 void cat_T(char strs[][10000], int len) {
     for (int i = 0; i < len; i++) {
-        for (int j = 0; j < strlen(strs[i]); j++) {
-            if (strs[i][j] == ' ' && strs[i][j + 1] == ' ' && strs[i][j + 2] == ' ' 
-            && strs[i][j + 3] == ' ') {
+        int len_str = strlen(strs[i]);
+        int count = 0;
+        for (int j = 0; j < len_str + 1; j++) {
+            if (strs[i][j] == '\t') {
+                int k;
+                // printf("i = %d, j = %d, len_str = %d\n", i, j, len_str);
+                for (int k = len_str; k >= j; k--) {
+                    strs[i][k] = strs[i][k - 1];
+                }
                 strs[i][j] = '^';
                 strs[i][j + 1] = 'I';
-                int k;
-                for (k = j + 2; k < strlen(strs[i]) - 2; k++) {
-                    strs[i][k] = strs[i][k + 2];
-                }
-                strs[i][k] = '\0';
+                len_str++;
             }
         }
     }
