@@ -10,6 +10,7 @@ int init_struct(char *argv[], cat_flags *cat_flags, int argc) {
     cat_flags->s = 0;
     cat_flags->E = 0;
     int count_path = 0;
+    int h = 0;
     while (i < argc) {
         if (argv[i][0] == '-' && argv[i][1] == 'b' && argv[i][2] == '\0') {
             cat_flags->b = 1;
@@ -30,9 +31,13 @@ int init_struct(char *argv[], cat_flags *cat_flags, int argc) {
         } else {
             if (i != 0) {
                 // printf("gg\n");
-                cat_flags->path = i;
+                for (int j = 0; j < strlen(argv[i]); j++) {
+                    cat_flags->path[h][j] = argv[i][j];
+                    // printf("dfgsdfgsdfg");
+                }
                 // printf("cap = %d\n", cat_flags->path);
                 count_path += 1;
+                h++;
             }
         }
         i++;

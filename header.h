@@ -12,7 +12,7 @@ typedef struct cat_flags {
     int t;
     int E;
     int T;
-    int path;
+    char path[100][100];
 } cat_flags;
 int init_struct(char *argv[], cat_flags *cat_flags, int argc);
 void create_str(char strs[][10000], FILE *file, int *i);
