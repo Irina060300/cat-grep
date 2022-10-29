@@ -15,9 +15,15 @@ int main(int argc, char *argv[]) {
                     int len = 0;
                     // len += 1;
                     create_str(strs, file, &len);
-                    if (cat_flags.s == 1) cat_s(strs, &len);
-                    if (cat_flags.T == 1) cat_T(strs, len);
-                    if (cat_flags.E == 1) cat_E(strs, len);
+                    if (cat_flags.s == 1) {
+                        cat_s(strs, &len);
+                    }
+                    if (cat_flags.T == 1) {
+                        cat_T(strs, len);
+                    }
+                    if (cat_flags.E == 1) {
+                        cat_E(strs, len);
+                    }
                     int h = 0;
                     for (int i = 0; i < len; i++) {
                         if (cat_flags.b == 1) {
