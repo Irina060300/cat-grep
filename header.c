@@ -44,7 +44,7 @@ int init_struct(char *argv[], cat_flags *cat_flags, int argc) {
     }
     return count_path;
 }
-void create_str(char strs[][10000], FILE *file, int *i) {
+void create_str(char strs[][10000], FILE *file, int  *i) {
     char *estr;
     char str[500];
     while (1) {
