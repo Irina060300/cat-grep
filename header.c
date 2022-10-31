@@ -1,45 +1,72 @@
 #include "header.h"
 
-int init_struct(char *argv[], cat_flags *cat_flags, int argc) {
-    int i = 1;
+int init_struct(int *i, char *argv[], cat_flags *cat_flags, int argc) {
     cat_flags->b = 0;
     cat_flags->n = 0;
     cat_flags->e = 0;
     cat_flags->v = 0;
     cat_flags->t = 0;
+    cat_flags->T = 0;
     cat_flags->s = 0;
     cat_flags->E = 0;
+    cat_flags->illegal = 0;
     int count_path = 0;
     int h = 0;
-    while (i < argc) {
-        if (argv[i][0] == '-' && argv[i][1] == 'b' && argv[i][2] == '\0') {
-            cat_flags->b = 1;
-        } else if (argv[i][0] == '-' && argv[i][1] == 'n' && argv[i][2] == '\0') {
-            cat_flags->n = 1;
-        } else if (argv[i][0] == '-' && argv[i][1] == 'e' && argv[i][2] == '\0') {
-            cat_flags->e = 1;
-        } else if (argv[i][0] == '-' && argv[i][1] == 'v' && argv[i][2] == '\0') {
-            cat_flags->v = 1;
-        } else if (argv[i][0] == '-' && argv[i][1] == 't' && argv[i][2] == '\0') {
-            cat_flags->t = 1;
-        } else if (argv[i][0] == '-' && argv[i][1] == 's' && argv[i][2] == '\0') {
-            cat_flags->s = 1;
-        } else if (argv[i][0] == '-' && argv[i][1] == 'E' && argv[i][2] == '\0') {
-            cat_flags->E = 1;
-        } else if (argv[i][0] == '-' && argv[i][1] == 'T' && argv[i][2] == '\0') {
-            cat_flags->T = 1;
-        } else {
-            for (int j = 0; j < strlen(argv[i]); j++) {
-                cat_flags->path[h][j] = argv[i][j];
-                // printf("dfgsdfgsdfg");
+    while(*i < argc) {
+        if (argv[*i][0] == '-' && argv[*i][1] != '-') {
+            for (int j = 1; j < strlen(argv[*i]); j++) {
+                if (argv[*i][j] == 'b') cat_flags->b = 1;
+                else if (argv[*i][j] == 'v') cat_flags->v = 1;
+                else if (argv[*i][j] == 'n') cat_flags->n = 1;
+                else if (argv[*i][j] == 's') cat_flags->s = 1;
+                else if (argv[*i][j] == 'E') cat_flags->E = 1;
+                else if (argv[*i][j] == 'e') {
+                    cat_flags->E = 1;
+                    cat_flags->v = 1;
+                }
+                else if (argv[*i][j] == 'T') cat_flags->T = 1;
+                else if (argv[*i][j] == 't') {
+                    cat_flags->v = 1;
+                    cat_flags->T = 1;
+                } else {
+                    cat_flags->illegal = 1;
+                }
             }
-            // printf("cap = %d\n", cat_flags->path);
-            count_path += 1;
-            h++;
+            *i = *i + 1;
+        } else {
+            break;
         }
-        i++;
     }
-    return count_path;
+    // while (i < argc) {
+    //     if (argv[i][0] == '-' && argv[i][1] == 'b' && argv[i][2] == '\0') {
+    //         cat_flags->b = 1;
+    //     } else if (argv[i][0] == '-' && argv[i][1] == 'n' && argv[i][2] == '\0') {
+    //         cat_flags->n = 1;
+    //     } else if (argv[i][0] == '-' && argv[i][1] == 'e' && argv[i][2] == '\0') {
+    //         cat_flags->e = 1;
+    //     } else if (argv[i][0] == '-' && argv[i][1] == 'v' && argv[i][2] == '\0') {
+    //         cat_flags->v = 1;
+    //     } else if (argv[i][0] == '-' && argv[i][1] == 't' && argv[i][2] == '\0') {
+    //         cat_flags->t = 1;
+    //     } else if (argv[i][0] == '-' && argv[i][1] == 's' && argv[i][2] == '\0') {
+    //         cat_flags->s = 1;
+    //     } else if (argv[i][0] == '-' && argv[i][1] == 'E' && argv[i][2] == '\0') {
+    //         cat_flags->E = 1;
+    //     } else if (argv[i][0] == '-' && argv[i][1] == 'T' && argv[i][2] == '\0') {
+    //         cat_flags->T = 1;
+    //     } else {
+    //         for (int j = 0; j < strlen(argv[i]); j++) {
+    //             cat_flags->path[h][j] = argv[i][j];
+    //             // printf("dfgsdfgsdfg");
+    //         }
+    //         // printf("cap = %d\n", cat_flags->path);
+    //         count_path += 1;
+    //         h++;
+    //     }
+    //     i++;
+    // }
+    // return count_path;
+    return *i;
 }
 void create_str(char **strs, FILE *file, int *i) {
     char *estr = NULL;
