@@ -14,11 +14,14 @@ typedef struct cat_flags {
     int E;
     int T;
     char illegal;
-    char illegal_long[200];
+    int illegal_long;
 } cat_flags;
 int init_struct(char *argv[], cat_flags *cat_flags, int argc);
-void create_str(char **strs, FILE *file, int *i);
-void cat_s(char **strs, int *len);
-void cat_E(char **strs, int len);
-void cat_T(char **strs, int len);
+void cat_b(int *num, char *estr);
+void cat_T(char *estr, int j, cat_flags cat_flags);
+void cat_n(int *num, char *estr);
+void cat_E(char *estr, int j, cat_flags cat_flags);
+void cat_v(char *estr, int j, cat_flags cat_flags);
+void cat_s(cat_flags cat_flags, char *estr, ssize_t read, size_t size, FILE *file, int *flag);
+void file_processing(int i, int argc, char *argv[], cat_flags cat_flags);
 #endif  //  HEADER_H_
