@@ -13,10 +13,10 @@ typedef struct cat_flags {
     int t;
     int E;
     int T;
-    int illegal;
-    char path[100][100];
+    char illegal;
+    char illegal_long[200];
 } cat_flags;
-int init_struct(int *i, char *argv[], cat_flags *cat_flags, int argc);
+int init_struct(char *argv[], cat_flags *cat_flags, int argc);
 void create_str(char **strs, FILE *file, int *i);
 void cat_s(char **strs, int *len);
 void cat_E(char **strs, int len);
