@@ -1,5 +1,5 @@
 s21_grep: s21_grep.o
-	gcc -fsanitize=address -g -Wall -Wextra -Werror s21_grep.c -o  s21_grep
+	gcc  s21_grep.c -o  s21_grep
 s21_grep.o: s21_grep.c s21_grep.h 
 	gcc -c  s21_grep.c
 clean:

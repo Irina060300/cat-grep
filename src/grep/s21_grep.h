@@ -12,13 +12,11 @@ typedef struct pattern_list {
 typedef struct grep_flags {
     int e, i, v, c, l, n, h, s, f, o;
     char illegal, ill_e, i_f;
-    char ill_f[1000];
+    char ill_f[255];
 } grep_flags;
 int check_e(grep_flags *grep_flags, int argc, char *argv[]);
-//void init_struct(int len, char *argv[], int i, grep_flags *grep_flags);
 void init_struct(char *argv[], int i, grep_flags *grep_flags, int j, int ill);
 pattern_list *push_stdin(char *argv[], pattern_list *cur, int i);
-// pattern_list *push_e(char *argv[], pattern_list *cur, int len_e, int i);
 pattern_list *push_e(char *argv[], pattern_list *cur, int len_e, int i, int j);
 void listprint(pattern_list *lst);
 void str_parser(grep_flags *grep_flags, int argc, char *argv[], pattern_list **cur, int *index);
