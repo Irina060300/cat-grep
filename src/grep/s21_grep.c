@@ -4,34 +4,35 @@ int main(int argc, char *argv[]) {
   grep_flags grep_flags = {0};
   check_s(argv, argc, &grep_flags);
   if (argc > 1) {
-    pattern_list *tmp = malloc(sizeof(pattern_list));
     int *index = calloc(argc, sizeof(int));
+    pattern_list *tmp = malloc(sizeof(pattern_list));
     tmp->pattern = NULL;
     tmp->next = NULL;
     pattern_list *cur = tmp;
     str_parser(&grep_flags, argc, argv, &cur, index);
     if (!print_pt_errors(&grep_flags)) {
+      is_o (tmp, &grep_flags);
       int c_count, h = 0, str_number, path_count = 0;
       FILE *file = NULL;
+      char *estr = NULL;
       while (index[path_count])
         path_count++;
-      char *estr = NULL;
       while (index[h]) {
         str_number = 1;
         c_count = 0;
         file = fopen(argv[index[h]], "r");
-        if (file != NULL) {
-          print_strs(&estr, file, &grep_flags, &tmp, argv, &str_number,
+        if (file) {
+          print_strs(&estr, file, &grep_flags, tmp, argv, &str_number,
                      path_count, &c_count, index, h);
           fclose(file);
+          //free(estr); // for ubunta
         } else if (!grep_flags.s)
           fprintf(stderr, "grep: %s: No such file or directory\n",
                   argv[index[h]]);
         h++;
       }
-    free(estr);
+      free(estr); // for macos
     }
-    // listprint(tmp);
     deletelem(tmp);
     free(index);
   } else {
@@ -41,28 +42,43 @@ int main(int argc, char *argv[]) {
   }
   return 0;
 }
+
+
+void is_o (pattern_list *tmp, grep_flags *grep_flags) {
+  pattern_list *p;
+  p = tmp->next;
+  do{
+    if (strcmp(p->pattern, "\n") == 0) {
+      grep_flags->o = 0;
+    }
+    p = p->next;
+  } while (p != NULL);
+}
 void print_strs(char **estr, FILE *file, grep_flags *grep_flags,
-                pattern_list **tmp, char *argv[], int *str_number,
+                pattern_list *tmp, char *argv[], int *str_number,
                 int path_count, int *c_count, int *index, int h) {
   size_t size = 0;
   ssize_t read = 0, read_next = 0;
-  regmatch_t pmatch;
-  size_t nmatch;
-  char *cursor = *estr;
   while ((read = getline(estr, &size, file)) != -1) {
-    int find = check_pattern(*estr, *tmp, grep_flags);
+    int find = 0;
+    find = check_pattern(*estr, tmp, grep_flags);
     if (!find && !(grep_flags->c || grep_flags->l)) {
       if (path_count > 1 && !grep_flags->h)
         printf("%s:", argv[index[h]]);
       if (grep_flags->n)
         printf("%d:", *str_number);
-      printf("%s", *estr);
+      if ((grep_flags->v && grep_flags->o) || !grep_flags->o)
+        printf("%s", *estr);
+      else
+        flag_o_proccess(*estr, grep_flags, file, c_count, path_count,
+                        tmp->next);
     } else if (!find)
       (*c_count)++;
     read_next = getline(estr, &size, file);
     if (read_next != -1) {
       fseek(file, -read_next, SEEK_CUR);
     } else if (read_next == -1 && !find && !grep_flags->c && !grep_flags->l &&
+               (!grep_flags->o || (grep_flags->v && grep_flags->o)) &&
                (*estr)[read - 1] != '\n')
       printf("\n");
     (*str_number)++;
@@ -85,6 +101,46 @@ void print_strs(char **estr, FILE *file, grep_flags *grep_flags,
     printf("%s\n", argv[index[h]]);
 }
 
+int flag_o_proccess(char *estr, grep_flags *grep_flags, FILE *file, int *count,
+                    int path_count, pattern_list *tmp) {
+  int reti = 0, find;
+  size_t cursor = 0;
+  while (tmp != NULL) {
+    char *str = calloc(sizeof(char), strlen(tmp->pattern) + 1);
+    if (str) {
+      regex_t regex;
+      regmatch_t pmatch = {0};
+      if (grep_flags->i)
+        reti = regcomp(&regex, tmp->pattern, REG_ICASE);
+      else
+        reti = regcomp(&regex, tmp->pattern, 0);
+      if (!reti) {
+        find = 0;
+        while (cursor < strlen(estr) && !find) {
+          find = regexec(&regex, estr + cursor, 1, &pmatch, 0);
+          if (!find) {
+            int i;
+            for (i = pmatch.rm_so; i < pmatch.rm_eo; i++) {
+              str[i - pmatch.rm_so] = estr[i + cursor];
+            }
+            if (str[strlen(str) - 1] != '\n')
+              printf("%s\n", str);
+            else
+              printf("%s", str);
+            flag_o_proccess(str, grep_flags, file, count, path_count,
+                            tmp->next);
+            cursor += pmatch.rm_eo;
+          }
+        }
+      }
+
+      tmp = tmp->next;
+      regfree(&regex);
+      free(str);
+    }
+  }
+  return find;
+}
 pattern_list *push_stdin(char *argv[], pattern_list *cur, int i) {
   pattern_list *add = malloc(sizeof(pattern_list)); //
   add->pattern = argv[i];
@@ -155,6 +211,8 @@ void init_struct(char *argv[], int i, grep_flags *grep_flags, int j, int ill) {
     grep_flags->f = 1;
   else if (argv[i][j] == 's')
     grep_flags->s = 1;
+  else if (argv[i][j] == 'o')
+    grep_flags->o = 1;
   else if (ill == 1 && argv[i][j] != 'e')
     grep_flags->illegal = argv[i][j];
 }
@@ -207,11 +265,10 @@ void str_parser(grep_flags *grep_flags, int argc, char *argv[],
     } else if (!(argv[i][0] == '-' && argv[i][1] != '\0') && count == 0) {
       *cur = push_stdin(argv, *cur, i);
       count = 1;
-    } else {
+    } else
       index[h++] = i;
-    }
   }
-  free(estr);
+  free(estr); // for macos
 }
 
 void flag_processing(FILE *file, char **estr, int len, size_t size,
@@ -266,24 +323,31 @@ void read_pat_file(FILE *file, char *argv[], int i, pattern_list **cur,
                    int *count, grep_flags *grep_flags, int fl, char *path) {
   if (file == NULL && *count == 0 && (fl == 1 || fl == -1)) {
     if (fl == -1) {
-        if (strlen(argv[i + 1]) <= 255) strcpy(grep_flags->ill_f, argv[i + 1]);
-        else (grep_flags->i_f = 'f');
+      if (strlen(argv[i + 1]) <= 255)
+        strcpy(grep_flags->ill_f, argv[i + 1]);
+      else
+        (grep_flags->i_f = 'f');
     }
     if (fl == 1) {
-        if (strlen(path) <= 255) strcpy(grep_flags->ill_f, path);
-        else (grep_flags->i_f = 'f');
+      if (strlen(path) <= 255)
+        strcpy(grep_flags->ill_f, path);
+      else
+        (grep_flags->i_f = 'f');
     }
     (*count)++;
   } else if (file) {
     while ((read = getline(estr, &size, file)) != -1) {
       pattern = malloc(sizeof(char) * size);
       strcpy(pattern, *estr);
-      if (strlen(pattern) > 1 && pattern[read - 1] == '\n')
-        pattern[read - 1] = '\0';
-      *cur = push_v(pattern, *cur);
+      if (strlen(pattern) > 1 && pattern[strlen(pattern) - 1] == '\n')
+        pattern[strlen(pattern) - 1] = '\0';
+      if (pattern[strlen(pattern) - 1] == '$') {
+        pattern[strlen(pattern) - 1] = '\n';
+      }
+      *cur = push_v(pattern, *cur); 
     }
     fclose(file);
-    //free(*estr);
+    // free(*estr); //for ubunta
   }
 }
 pattern_list *push_v(char *pattern, pattern_list *cur) {
@@ -327,7 +391,7 @@ int check_pattern(char *estr, pattern_list *tmp, grep_flags *grep_flags) {
 }
 
 void check_s(char *argv[], int argc, grep_flags *grep_flags) {
-  for (int i = 0; i < argc; i++) {
+  for (int i = 1; i < argc; i++) {
     if (argv[i][0] == '-' && argv[i][1] == 's' && argv[i][2] == '\0') {
       grep_flags->s = 1;
       break;
@@ -365,3 +429,4 @@ Usage: grep [OPTION]... PATTERNS [FILE]...\nTry 'grep --help' for more informati
   }
   return count;
 }
+

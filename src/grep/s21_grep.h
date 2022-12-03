@@ -1,3 +1,6 @@
+#ifndef SRC_GREP_S21_GREP_H_
+#define SRC_GREP_S21_GREP_H_
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -18,7 +21,6 @@ int check_e(grep_flags *grep_flags, int argc, char *argv[]);
 void init_struct(char *argv[], int i, grep_flags *grep_flags, int j, int ill);
 pattern_list *push_stdin(char *argv[], pattern_list *cur, int i);
 pattern_list *push_e(char *argv[], pattern_list *cur, int len_e, int i, int j);
-void listprint(pattern_list *lst);
 void str_parser(grep_flags *grep_flags, int argc, char *argv[], pattern_list **cur, int *index);
 int check_pattern(char *estr, pattern_list *tmp, grep_flags *grep_flags);
 void check_s(char *argv[], int argc, grep_flags *grep_flags);
@@ -30,4 +32,7 @@ pattern_list **cur, int argc, int *c, grep_flags *grep_flags, int len_e, int ill
 void read_pat_file(FILE *file, char *argv[], int i, pattern_list **cur, char **estr, char *pattern,\
 size_t size, ssize_t read, int *count, grep_flags *grep_flags, int fl, char *path);
 void print_strs(char **estr, FILE *file, grep_flags *grep_flags,\
- pattern_list **tmp, char *argv[], int *str_number, int path_count, int *c_count, int *index, int h);
+ pattern_list *tmp, char *argv[], int *str_number, int path_count, int *c_count, int *index, int h);
+int flag_o_proccess(char *estr, grep_flags *grep_flags, FILE *file, int *count, int path_count, pattern_list *tmp);
+void is_o (pattern_list *tmp, grep_flags *grep_flags);
+#endif  // SRC_GREP_S21_GREP_H_
