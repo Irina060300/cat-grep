@@ -1,0 +1,245 @@
+0 1 1 success grep for test_1_grep.txt test_2_grep.txt
+0 2 2 success grep for test_1_grep.txt
+0 3 3 success grep ^\} test_1_grep.txt
+0 4 4 success grep -ce ^int test_1_grep.txt test_2_grep.txt
+0 5 5 success grep ^int test_1_grep.txt
+0 6 6 success grep -nivh = test_1_grep.txt test_2_grep.txt
+0 7 7 success grep 
+0 8 8 success grep -eint -e - s21_grep.c
+0 9 9 success grep -ie INT test_5_grep.txt
+0 10 10 success grep -echar test_1_grep.txt test_2_grep.txt
+0 11 11 success grep = -e out test_5_grep.txt
+0 12 12 success grep -iv int test_5_grep.txt
+0 13 13 success grep -in int test_5_grep.txt
+0 14 14 success grep -v test_1_grep.txt -e ank
+0 15 15 success grep ) test_5_grep.txt
+0 16 16 success grep -l for test_1_grep.txt test_2_grep.txt
+0 17 17 success grep -i -e int test_4_grep.txt
+0 18 18 success grep -i -e int test_4_grep.txt -e
+0 19 19 success grep = -e out test_5_grep.txt
+0 20 20 success grep ing -e as -e the -e not -e is test_6_grep.txt
+0 21 21 success grep ing -e as -e the -e not -e is test_6_grep.txt
+0 22 22 success grep -c -e . test_1_grep.txt -e '.'
+0 23 23 success grep -l for no_file.txt test_2_grep.txt
+0 24 24 success grep -i test_3_grep.txt test_5_grep.txt
+0 25 25 success grep -veint -icn test_1_grep.txt test_2_grep.txt -e include sgsgsdfg.txt -s
+0 26 26 success grep no.txt -e'.' -icn test_1_grep.txt test_2_grep.txt test_3_grep.txt test_4_grep.txt -e size
+0 27 27 success grep -e- s21_cat.c -einclude -h s21_cat.h -echar
+0 28 28 success grep -f test_3_grep.txt test_5_grep.txt
+0 29 29 success grep -eint -epattern -epat -o s21_grep.c s21_grep.h -n
+0 30 30 success grep -eint -epattern -epat -o s21_grep.c s21_grep.h -nlc
+0 31 31 success grep -f pat1.txt -eint -evoid -fpat2.txt s21_grep.c s21_grep.h
+0 32 32 success grep -f pat1.txt -veint -evoid -fpat2.txt s21_grep.c s21_grep.h
+0 33 33 success grep -iv -f pat1.txt pat2.txt -eint -evoid -fpat2.txt s21_grep.c s21_grep.h
+0 34 34 success grep -i - test_1_grep.c
+0 35 35 success grep s21_grep.c s21_grep.h -eint -ivfpat1.txt -echar -f pat2.txt test_1_grep.txt
+0 36 36 success grep int \n int s21_grep.c test_1_grep.txt -nh
+0 37 37 success grep int \n int s21_grep.c test_1_grep.txt -nhv
+0 38 38 success grep -if pat1.txt -f pat2.txt -fpat3.txt -v test_6_grep.txt test_4_grep.txt s21_grep.c
+0 39 39 success grep -e'.' -epattern -epat -o 1.txt -n -fpat1.txt
+0 40 40 success grep -f test_3_grep.txt -eint -evoid s21_grep.c s21_grep.h
+0 41 41 success grep -f pat1.txt -o a.txt a.txt -n
+0 42 42 success grep s test_0_grep.txt -v
+0 43 43 success grep for s21_grep.c s21_grep.h Makefile -v
+0 44 44 success grep for s21_grep.c -v
+0 45 45 success grep for -e ^int s21_grep.c s21_grep.h Makefile -v
+0 46 46 success grep for -e ^int s21_grep.c -v
+0 47 47 success grep regex -e ^print s21_grep.c -v
+0 48 48 success grep while -e void s21_grep.c Makefile -v
+0 49 49 success grep s test_0_grep.txt -c
+0 50 50 success grep for s21_grep.c s21_grep.h Makefile -c
+0 51 51 success grep for s21_grep.c -c
+0 52 52 success grep for -e ^int s21_grep.c s21_grep.h Makefile -c
+0 53 53 success grep for -e ^int s21_grep.c -c
+0 54 54 success grep regex -e ^print s21_grep.c -c
+0 55 55 success grep while -e void s21_grep.c Makefile -c
+0 56 56 success grep s test_0_grep.txt -l
+0 57 57 success grep for s21_grep.c s21_grep.h Makefile -l
+0 58 58 success grep for s21_grep.c -l
+0 59 59 success grep for -e ^int s21_grep.c s21_grep.h Makefile -l
+0 60 60 success grep for -e ^int s21_grep.c -l
+0 61 61 success grep regex -e ^print s21_grep.c -l
+0 62 62 success grep while -e void s21_grep.c Makefile -l
+0 63 63 success grep s test_0_grep.txt -n
+0 64 64 success grep for s21_grep.c s21_grep.h Makefile -n
+0 65 65 success grep for s21_grep.c -n
+0 66 66 success grep for -e ^int s21_grep.c s21_grep.h Makefile -n
+0 67 67 success grep for -e ^int s21_grep.c -n
+0 68 68 success grep regex -e ^print s21_grep.c -n
+0 69 69 success grep while -e void s21_grep.c Makefile -n
+0 70 70 success grep s test_0_grep.txt -h
+0 71 71 success grep for s21_grep.c s21_grep.h Makefile -h
+0 72 72 success grep for s21_grep.c -h
+0 73 73 success grep for -e ^int s21_grep.c s21_grep.h Makefile -h
+0 74 74 success grep for -e ^int s21_grep.c -h
+0 75 75 success grep regex -e ^print s21_grep.c -h
+0 76 76 success grep while -e void s21_grep.c Makefile -h
+0 77 77 success grep s test_0_grep.txt -v -c
+0 78 78 success grep for s21_grep.c s21_grep.h Makefile -v -c
+0 79 79 success grep for s21_grep.c -v -c
+0 80 80 success grep for -e ^int s21_grep.c s21_grep.h Makefile -v -c
+0 81 81 success grep for -e ^int s21_grep.c -v -c
+0 82 82 success grep regex -e ^print s21_grep.c -v -c
+0 83 83 success grep while -e void s21_grep.c Makefile -v -c
+0 84 84 success grep s test_0_grep.txt -v -l
+0 85 85 success grep for s21_grep.c s21_grep.h Makefile -v -l
+0 86 86 success grep for s21_grep.c -v -l
+0 87 87 success grep for -e ^int s21_grep.c s21_grep.h Makefile -v -l
+0 88 88 success grep for -e ^int s21_grep.c -v -l
+0 89 89 success grep regex -e ^print s21_grep.c -v -l
+0 90 90 success grep while -e void s21_grep.c Makefile -v -l
+0 91 91 success grep s test_0_grep.txt -v -n
+0 92 92 success grep for s21_grep.c s21_grep.h Makefile -v -n
+0 93 93 success grep for s21_grep.c -v -n
+0 94 94 success grep for -e ^int s21_grep.c s21_grep.h Makefile -v -n
+0 95 95 success grep for -e ^int s21_grep.c -v -n
+0 96 96 success grep regex -e ^print s21_grep.c -v -n
+0 97 97 success grep while -e void s21_grep.c Makefile -v -n
+0 98 98 success grep s test_0_grep.txt -v -h
+0 99 99 success grep for s21_grep.c s21_grep.h Makefile -v -h
+0 100 100 success grep for s21_grep.c -v -h
+0 101 101 success grep for -e ^int s21_grep.c s21_grep.h Makefile -v -h
+0 102 102 success grep for -e ^int s21_grep.c -v -h
+0 103 103 success grep regex -e ^print s21_grep.c -v -h
+0 104 104 success grep while -e void s21_grep.c Makefile -v -h
+0 105 105 success grep s test_0_grep.txt -v -o
+0 106 106 success grep for s21_grep.c s21_grep.h Makefile -v -o
+0 107 107 success grep for s21_grep.c -v -o
+0 108 108 success grep for -e ^int s21_grep.c s21_grep.h Makefile -v -o
+0 109 109 success grep for -e ^int s21_grep.c -v -o
+0 110 110 success grep regex -e ^print s21_grep.c -v -o
+0 111 111 success grep while -e void s21_grep.c Makefile -v -o
+0 112 112 success grep s test_0_grep.txt -c -v
+0 113 113 success grep for s21_grep.c s21_grep.h Makefile -c -v
+0 114 114 success grep for s21_grep.c -c -v
+0 115 115 success grep for -e ^int s21_grep.c s21_grep.h Makefile -c -v
+0 116 116 success grep for -e ^int s21_grep.c -c -v
+0 117 117 success grep regex -e ^print s21_grep.c -c -v
+0 118 118 success grep while -e void s21_grep.c Makefile -c -v
+0 119 119 success grep s test_0_grep.txt -c -l
+0 120 120 success grep for s21_grep.c s21_grep.h Makefile -c -l
+0 121 121 success grep for s21_grep.c -c -l
+0 122 122 success grep for -e ^int s21_grep.c s21_grep.h Makefile -c -l
+0 123 123 success grep for -e ^int s21_grep.c -c -l
+0 124 124 success grep regex -e ^print s21_grep.c -c -l
+0 125 125 success grep while -e void s21_grep.c Makefile -c -l
+0 126 126 success grep s test_0_grep.txt -c -n
+0 127 127 success grep for s21_grep.c s21_grep.h Makefile -c -n
+0 128 128 success grep for s21_grep.c -c -n
+0 129 129 success grep for -e ^int s21_grep.c s21_grep.h Makefile -c -n
+0 130 130 success grep for -e ^int s21_grep.c -c -n
+0 131 131 success grep regex -e ^print s21_grep.c -c -n
+0 132 132 success grep while -e void s21_grep.c Makefile -c -n
+0 133 133 success grep s test_0_grep.txt -c -h
+0 134 134 success grep for s21_grep.c s21_grep.h Makefile -c -h
+0 135 135 success grep for s21_grep.c -c -h
+0 136 136 success grep for -e ^int s21_grep.c s21_grep.h Makefile -c -h
+0 137 137 success grep for -e ^int s21_grep.c -c -h
+0 138 138 success grep regex -e ^print s21_grep.c -c -h
+0 139 139 success grep while -e void s21_grep.c Makefile -c -h
+0 140 140 success grep s test_0_grep.txt -c -o
+0 141 141 success grep for s21_grep.c s21_grep.h Makefile -c -o
+0 142 142 success grep for s21_grep.c -c -o
+0 143 143 success grep for -e ^int s21_grep.c s21_grep.h Makefile -c -o
+0 144 144 success grep for -e ^int s21_grep.c -c -o
+0 145 145 success grep regex -e ^print s21_grep.c -c -o
+0 146 146 success grep while -e void s21_grep.c Makefile -c -o
+0 147 147 success grep s test_0_grep.txt -l -v
+0 148 148 success grep for s21_grep.c s21_grep.h Makefile -l -v
+0 149 149 success grep for s21_grep.c -l -v
+0 150 150 success grep for -e ^int s21_grep.c s21_grep.h Makefile -l -v
+0 151 151 success grep for -e ^int s21_grep.c -l -v
+0 152 152 success grep regex -e ^print s21_grep.c -l -v
+0 153 153 success grep while -e void s21_grep.c Makefile -l -v
+0 154 154 success grep s test_0_grep.txt -l -c
+0 155 155 success grep for s21_grep.c s21_grep.h Makefile -l -c
+0 156 156 success grep for s21_grep.c -l -c
+0 157 157 success grep for -e ^int s21_grep.c s21_grep.h Makefile -l -c
+0 158 158 success grep for -e ^int s21_grep.c -l -c
+0 159 159 success grep regex -e ^print s21_grep.c -l -c
+0 160 160 success grep while -e void s21_grep.c Makefile -l -c
+0 161 161 success grep s test_0_grep.txt -l -n
+0 162 162 success grep for s21_grep.c s21_grep.h Makefile -l -n
+0 163 163 success grep for s21_grep.c -l -n
+0 164 164 success grep for -e ^int s21_grep.c s21_grep.h Makefile -l -n
+0 165 165 success grep for -e ^int s21_grep.c -l -n
+0 166 166 success grep regex -e ^print s21_grep.c -l -n
+0 167 167 success grep while -e void s21_grep.c Makefile -l -n
+0 168 168 success grep s test_0_grep.txt -l -h
+0 169 169 success grep for s21_grep.c s21_grep.h Makefile -l -h
+0 170 170 success grep for s21_grep.c -l -h
+0 171 171 success grep for -e ^int s21_grep.c s21_grep.h Makefile -l -h
+0 172 172 success grep for -e ^int s21_grep.c -l -h
+0 173 173 success grep regex -e ^print s21_grep.c -l -h
+0 174 174 success grep while -e void s21_grep.c Makefile -l -h
+0 175 175 success grep s test_0_grep.txt -l -o
+0 176 176 success grep for s21_grep.c s21_grep.h Makefile -l -o
+0 177 177 success grep for s21_grep.c -l -o
+0 178 178 success grep for -e ^int s21_grep.c s21_grep.h Makefile -l -o
+0 179 179 success grep for -e ^int s21_grep.c -l -o
+0 180 180 success grep regex -e ^print s21_grep.c -l -o
+0 181 181 success grep while -e void s21_grep.c Makefile -l -o
+0 182 182 success grep s test_0_grep.txt -n -v
+0 183 183 success grep for s21_grep.c s21_grep.h Makefile -n -v
+0 184 184 success grep for s21_grep.c -n -v
+0 185 185 success grep for -e ^int s21_grep.c s21_grep.h Makefile -n -v
+0 186 186 success grep for -e ^int s21_grep.c -n -v
+0 187 187 success grep regex -e ^print s21_grep.c -n -v
+0 188 188 success grep while -e void s21_grep.c Makefile -n -v
+0 189 189 success grep s test_0_grep.txt -n -c
+0 190 190 success grep for s21_grep.c s21_grep.h Makefile -n -c
+0 191 191 success grep for s21_grep.c -n -c
+0 192 192 success grep for -e ^int s21_grep.c s21_grep.h Makefile -n -c
+0 193 193 success grep for -e ^int s21_grep.c -n -c
+0 194 194 success grep regex -e ^print s21_grep.c -n -c
+0 195 195 success grep while -e void s21_grep.c Makefile -n -c
+0 196 196 success grep s test_0_grep.txt -n -l
+0 197 197 success grep for s21_grep.c s21_grep.h Makefile -n -l
+0 198 198 success grep for s21_grep.c -n -l
+0 199 199 success grep for -e ^int s21_grep.c s21_grep.h Makefile -n -l
+0 200 200 success grep for -e ^int s21_grep.c -n -l
+0 201 201 success grep regex -e ^print s21_grep.c -n -l
+0 202 202 success grep while -e void s21_grep.c Makefile -n -l
+0 203 203 success grep s test_0_grep.txt -n -h
+0 204 204 success grep for s21_grep.c s21_grep.h Makefile -n -h
+0 205 205 success grep for s21_grep.c -n -h
+0 206 206 success grep for -e ^int s21_grep.c s21_grep.h Makefile -n -h
+0 207 207 success grep for -e ^int s21_grep.c -n -h
+0 208 208 success grep regex -e ^print s21_grep.c -n -h
+0 209 209 success grep while -e void s21_grep.c Makefile -n -h
+0 210 210 success grep s test_0_grep.txt -n -o
+0 211 211 success grep for s21_grep.c s21_grep.h Makefile -n -o
+0 212 212 success grep for s21_grep.c -n -o
+0 213 213 success grep for -e ^int s21_grep.c s21_grep.h Makefile -n -o
+0 214 214 success grep for -e ^int s21_grep.c -n -o
+0 215 215 success grep regex -e ^print s21_grep.c -n -o
+0 216 216 success grep while -e void s21_grep.c Makefile -n -o
+0 217 217 success grep s test_0_grep.txt -h -v
+0 218 218 success grep for s21_grep.c s21_grep.h Makefile -h -v
+0 219 219 success grep for s21_grep.c -h -v
+0 220 220 success grep for -e ^int s21_grep.c s21_grep.h Makefile -h -v
+0 221 221 success grep for -e ^int s21_grep.c -h -v
+0 222 222 success grep regex -e ^print s21_grep.c -h -v
+0 223 223 success grep while -e void s21_grep.c Makefile -h -v
+0 224 224 success grep s test_0_grep.txt -h -c
+0 225 225 success grep for s21_grep.c s21_grep.h Makefile -h -c
+0 226 226 success grep for s21_grep.c -h -c
+0 227 227 success grep for -e ^int s21_grep.c s21_grep.h Makefile -h -c
+0 228 228 success grep for -e ^int s21_grep.c -h -c
+0 229 229 success grep regex -e ^print s21_grep.c -h -c
+0 230 230 success grep while -e void s21_grep.c Makefile -h -c
+0 231 231 success grep s test_0_grep.txt -h -l
+0 232 232 success grep for s21_grep.c s21_grep.h Makefile -h -l
+0 233 233 success grep for s21_grep.c -h -l
+0 234 234 success grep for -e ^int s21_grep.c s21_grep.h Makefile -h -l
+0 235 235 success grep for -e ^int s21_grep.c -h -l
+0 236 236 success grep regex -e ^print s21_grep.c -h -l
+0 237 237 success grep while -e void s21_grep.c Makefile -h -l
+0 238 238 success grep s test_0_grep.txt -h -n
+0 239 239 success grep for s21_grep.c s21_grep.h Makefile -h -n
+0 240 240 success grep for s21_grep.c -h -n
+0 241 241 success grep for -e ^int s21_grep.c s21_grep.h Makefile -h -n
+0 242 242 success grep for -e ^int s21_grep.c -h -n
+0 243 243 success grep regex -e ^print s21_grep.c -h -n
+0 244 244 success grep while -e void s21_grep.c Makefile -h -n
+0 245 245 success grep s test_0_grep.txt -h -o

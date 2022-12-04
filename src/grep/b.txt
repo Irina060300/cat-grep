@@ -1,0 +1,325 @@
+s21_grep.c:
+s21_grep.c:  grep_flags grep_flags = {0};
+s21_grep.c:  if (argc > 1) {
+s21_grep.c:    pattern_list *tmp = malloc(sizeof(pattern_list));
+s21_grep.c:    tmp->pattern = NULL;
+s21_grep.c:    tmp->next = NULL;
+s21_grep.c:    pattern_list *cur = tmp;
+s21_grep.c:      if (tmp->next != NULL) {
+s21_grep.c:        is_o (tmp, &grep_flags);
+s21_grep.c:      FILE *file = NULL;
+s21_grep.c:      counters cts = {0};
+s21_grep.c:        (cts.path_count)++;
+s21_grep.c:        cts.str_number = 1;
+s21_grep.c:        cts.c_count = 0;
+s21_grep.c:        if (file) {
+s21_grep.c:          memset(estr, 0, strlen(estr));
+s21_grep.c:          fclose(file);
+s21_grep.c:        } else if (!grep_flags.s)
+s21_grep.c:        cts.h++;
+s21_grep.c:      }
+s21_grep.c:      free(estr);
+s21_grep.c:      }
+s21_grep.c:    }
+s21_grep.c:    deletelem(tmp);
+s21_grep.c:  } else {
+s21_grep.c:    if (!grep_flags.s)
+s21_grep.c:  }
+s21_grep.c:  return 0;
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:  pattern_list *p;
+s21_grep.c:  p = tmp->next;
+s21_grep.c:  do{
+s21_grep.c:    if (strcmp(p->pattern, "\n") == 0) {
+s21_grep.c:      grep_flags->o = 0;
+s21_grep.c:    }
+s21_grep.c:    p = p->next;
+s21_grep.c:  } while (p != NULL);
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:      if (cts->path_count > 1 && !grep_flags->h)
+s21_grep.c:      if (grep_flags->n)
+s21_grep.c:      if ((grep_flags->v && grep_flags->o) || !grep_flags->o)
+s21_grep.c:      else
+s21_grep.c:        flag_o_proccess(*estr, grep_flags, file, tmp->next);
+s21_grep.c:      cts->c_count++;
+s21_grep.c:    if (cts->read_next != -1) {
+s21_grep.c:      fseek(file, -cts->read_next, SEEK_CUR);
+s21_grep.c:               (!grep_flags->o || (grep_flags->v && grep_flags->o)) &&
+s21_grep.c:               (*estr)[cts->read - 1] != '\n')
+s21_grep.c:    cts->str_number++;
+s21_grep.c:  }
+s21_grep.c:  if (grep_flags->c && grep_flags->l) {
+s21_grep.c:    if (cts->c_count) {
+s21_grep.c:      if (!grep_flags->h && cts->path_count > 1)
+s21_grep.c:    } else {
+s21_grep.c:      if (!grep_flags->h)
+s21_grep.c:    }
+s21_grep.c:  } else if (grep_flags->c) {
+s21_grep.c:    if (cts->path_count > 1 && !grep_flags->h)
+s21_grep.c:  } else if (cts->c_count && grep_flags->l)
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:
+s21_grep.c:  size_t cursor = 0;
+s21_grep.c:  while (tmp != NULL) {
+s21_grep.c:    if (str) {
+s21_grep.c:      regex_t regex;
+s21_grep.c:      if (grep_flags->i)
+s21_grep.c:        reti = regcomp(&regex, tmp->pattern, REG_ICASE);
+s21_grep.c:      else
+s21_grep.c:        reti = regcomp(&regex, tmp->pattern, 0);
+s21_grep.c:      if (!reti) {
+s21_grep.c:            }
+s21_grep.c:            if (str[strlen(str) - 1] != '\n')
+s21_grep.c:            else
+s21_grep.c:            flag_o_proccess(str, grep_flags, file, tmp->next);
+s21_grep.c:          }
+s21_grep.c:        }
+s21_grep.c:      }
+s21_grep.c:
+s21_grep.c:      tmp = tmp->next;
+s21_grep.c:      regfree(&regex);
+s21_grep.c:      free(str);
+s21_grep.c:    }
+s21_grep.c:  }
+s21_grep.c:}
+s21_grep.c:  pattern_list *add = malloc(sizeof(pattern_list)); //
+s21_grep.c:  add->pattern = argv[i];
+s21_grep.c:  add->flag = 0;
+s21_grep.c:  add->next = NULL;
+s21_grep.c:  cur->next = add;
+s21_grep.c:  return add;
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:  pattern_list *temp;
+s21_grep.c:  while (head) {
+s21_grep.c:    temp = head->next;
+s21_grep.c:    if (head->next && temp->flag == 1)
+s21_grep.c:      free(temp->pattern);
+s21_grep.c:    free(head);
+s21_grep.c:    head = temp;
+s21_grep.c:  }
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:  pattern_list *p;
+s21_grep.c:  p = lst->next;
+s21_grep.c:  do {
+s21_grep.c:    p = p->next;
+s21_grep.c:  } while (p != NULL);
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:    if (argv[i][0] == '-') {
+s21_grep.c:        if (argv[i][j] == 'e')
+s21_grep.c:          grep_flags->e = 1;
+s21_grep.c:      }
+s21_grep.c:    }
+s21_grep.c:  }
+s21_grep.c:  return grep_flags->e;
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:  pattern_list *add = malloc(sizeof(pattern_list));
+s21_grep.c:    argv[i][k] = argv[i][k + j + 1];
+s21_grep.c:  argv[i][len_e] = '\0';
+s21_grep.c:  add->pattern = argv[i];
+s21_grep.c:  add->flag = 0;
+s21_grep.c:  add->next = NULL;
+s21_grep.c:  cur->next = add;
+s21_grep.c:  return add;
+s21_grep.c:}
+s21_grep.c:  if (argv[i][j] == 'i')
+s21_grep.c:    grep_flags->i = 1;
+s21_grep.c:  else if (argv[i][j] == 'v')
+s21_grep.c:    grep_flags->v = 1;
+s21_grep.c:  else if (argv[i][j] == 'c')
+s21_grep.c:    grep_flags->c = 1;
+s21_grep.c:  else if (argv[i][j] == 'l')
+s21_grep.c:    grep_flags->l = 1;
+s21_grep.c:  else if (argv[i][j] == 'n')
+s21_grep.c:    grep_flags->n = 1;
+s21_grep.c:  else if (argv[i][j] == 'h')
+s21_grep.c:    grep_flags->h = 1;
+s21_grep.c:  else if (argv[i][j] == 'f')
+s21_grep.c:    grep_flags->f = 1;
+s21_grep.c:  else if (argv[i][j] == 's')
+s21_grep.c:    grep_flags->s = 1;
+s21_grep.c:  else if (argv[i][j] == 'o')
+s21_grep.c:    grep_flags->o = 1;
+s21_grep.c:  else if (ill == 1 && argv[i][j] != 'e')
+s21_grep.c:    grep_flags->illegal = argv[i][j];
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:  FILE *file = NULL;
+s21_grep.c:  pars p = {0};
+s21_grep.c:  p.c = 1;
+s21_grep.c:    p.len = strlen(argv[i]), p.c = 1;
+s21_grep.c:      if (argv[i][0] == '-')
+s21_grep.c:      else
+s21_grep.c:    } else if (argv[i][0] == '-' && argv[i][1] != '\0') {
+s21_grep.c:        if (argv[i][j] == 'f' && j == p.len - 1 && i < argc - 1) {
+s21_grep.c:          file = fopen(argv[i + 1], "r");
+s21_grep.c:          fl = -1;
+s21_grep.c:          read_pat_file(file, argv, i, cur, &estr, pattern, grep_flags, path, &p, fl);
+s21_grep.c:          p.c = 2;
+s21_grep.c:          count = 1;
+s21_grep.c:        } else if (argv[i][j] == 'f' && j == p.len - 1 && i == argc - 1)
+s21_grep.c:          grep_flags->i_f = 'f';
+s21_grep.c:        else if (argv[i][j] == 'f' && j < p.len - 1) {
+s21_grep.c:          p.len_e = p.len - j - 1;
+s21_grep.c:          fl = 1;
+s21_grep.c:            path[k] = argv[i][k + j + 1];
+s21_grep.c:          }
+s21_grep.c:          path[p.len_e] = '\0';
+s21_grep.c:          file = fopen(path, "r");
+s21_grep.c:          read_pat_file(file, argv, i, cur, &estr, pattern, grep_flags, path, &p, fl);
+s21_grep.c:          count = 1;
+s21_grep.c:          break;
+s21_grep.c:        } else {
+s21_grep.c:          if (grep_flags->illegal)
+s21_grep.c:            p.ill++;
+s21_grep.c:        }
+s21_grep.c:      }
+s21_grep.c:    } else if (!(argv[i][0] == '-' && argv[i][1] != '\0') && count == 0) {
+s21_grep.c:      count = 1;
+s21_grep.c:    } else
+s21_grep.c:  }
+s21_grep.c:  free(estr);
+s21_grep.c:}
+s21_grep.c:    if (argv[i][j] != 'e' && argv[i][j] != 'f') {
+s21_grep.c:      if (grep_flags->illegal)
+s21_grep.c:        p->ill++;
+s21_grep.c:    } else if ((argv[i][j] == 'e' || argv[i][j] == 'f') && j == p->len - 1 &&
+s21_grep.c:               i < argc - 1) {
+s21_grep.c:      if (argv[i][j] == 'e')
+s21_grep.c:      else {
+s21_grep.c:        fl = -1;
+s21_grep.c:        path[0] = '\0';
+s21_grep.c:        file = fopen(argv[i + 1], "r");
+s21_grep.c:        read_pat_file(file, argv, i, cur, estr, pattern, grep_flags, path, p, fl);
+s21_grep.c:      }
+s21_grep.c:      p->c = 2;
+s21_grep.c:    } else if ((argv[i][j] == 'e' || argv[i][j] == 'f') && j == p->len - 1 &&
+s21_grep.c:               i == argc - 1) {
+s21_grep.c:      if (argv[i][j] == 'e')
+s21_grep.c:        grep_flags->ill_e = 'e';
+s21_grep.c:      else
+s21_grep.c:        grep_flags->i_f = 'f';
+s21_grep.c:    } else if ((argv[i][j] == 'e' || argv[i][j] == 'f') && j < p->len - 1) {
+s21_grep.c:      p->len_e = p->len - j - 1;
+s21_grep.c:      if (argv[i][j] == 'e') {
+s21_grep.c:        *cur = push_e(argv, *cur, p->len_e, i, j);
+s21_grep.c:        break;
+s21_grep.c:      } else {
+s21_grep.c:        fl = 1;
+s21_grep.c:          path[k] = argv[i][k + j + 1];
+s21_grep.c:        path[p->len_e] = '\0';
+s21_grep.c:        file = fopen(path, "r");
+s21_grep.c:        read_pat_file(file, argv, i, cur, estr, pattern, grep_flags, path, p, fl);
+s21_grep.c:        break;
+s21_grep.c:      }
+s21_grep.c:    }
+s21_grep.c:  }
+s21_grep.c:}
+s21_grep.c:  if (file == NULL && p->ill_f == 0 && (fl == 1 || fl == -1)) {
+s21_grep.c:    if (fl == -1) {
+s21_grep.c:      if (strlen(argv[i + 1]) <= 255)
+s21_grep.c:        strcpy(grep_flags->ill_f, argv[i + 1]);
+s21_grep.c:      else
+s21_grep.c:        (grep_flags->i_f = 'f'); 
+s21_grep.c:    }
+s21_grep.c:    if (fl == 1) {
+s21_grep.c:      if (strlen(path) <= 255)
+s21_grep.c:        strcpy(grep_flags->ill_f, path);
+s21_grep.c:      else
+s21_grep.c:        (grep_flags->i_f = 'f');
+s21_grep.c:    }
+s21_grep.c:    p->ill_f++;
+s21_grep.c:  } else if (file) {
+s21_grep.c:        // strcpy(pattern, *estr);
+s21_grep.c:        pattern = strdup(*estr);
+s21_grep.c:        if (strlen(pattern) > 1 && pattern[strlen(pattern) - 1] == '\n')
+s21_grep.c:          pattern[strlen(pattern) - 1] = '\0';
+s21_grep.c:        if (pattern[strlen(pattern) - 1] == '$') {
+s21_grep.c:          pattern[strlen(pattern) - 1] = '\n';
+s21_grep.c:        }
+s21_grep.c:        *cur = push_v(pattern, *cur); 
+s21_grep.c:      }
+s21_grep.c:    fclose(file);
+s21_grep.c:  }
+s21_grep.c:}
+s21_grep.c:  pattern_list *add = malloc(sizeof(pattern_list)); //
+s21_grep.c:  add->pattern = pattern;
+s21_grep.c:  add->flag = 1;
+s21_grep.c:  add->next = NULL;
+s21_grep.c:  cur->next = add;
+s21_grep.c:  return add;
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:  pattern_list *p;
+s21_grep.c:  p = tmp->next;
+s21_grep.c:  regex_t regex;
+s21_grep.c:  do {
+s21_grep.c:    if (grep_flags->i == 1)
+s21_grep.c:      reti = regcomp(&regex, p->pattern, REG_ICASE);
+s21_grep.c:    else
+s21_grep.c:      reti = regcomp(&regex, p->pattern, 0);
+s21_grep.c:    if (!reti)
+s21_grep.c:    if (p->pattern[0] == '.' && estr[0] == '\n')
+s21_grep.c:      fl++;
+s21_grep.c:    step++;
+s21_grep.c:    p = p->next;
+s21_grep.c:    regfree(&regex);
+s21_grep.c:  } while (p != NULL);
+s21_grep.c:  if (grep_flags->v && fl == 0)
+s21_grep.c:  else if (grep_flags->v && fl > 0)
+s21_grep.c:  else if (!grep_flags->v && fl > 0)
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:    if (argv[i][0] == '-' && argv[i][1] == 's' && argv[i][2] == '\0') {
+s21_grep.c:      grep_flags->s = 1;
+s21_grep.c:      break;
+s21_grep.c:    }
+s21_grep.c:  }
+s21_grep.c:}
+s21_grep.c:
+s21_grep.c:  if (grep_flags->illegal != '\0') {
+s21_grep.c:    if (!grep_flags->s) {
+s21_grep.c:              grep_flags->illegal);
+s21_grep.c:      count++;
+s21_grep.c:    }
+s21_grep.c:  } else if (grep_flags->ill_f[0] != '\0') {
+s21_grep.c:    if (!grep_flags->s) {
+s21_grep.c:              grep_flags->ill_f);
+s21_grep.c:      count++;
+s21_grep.c:    }
+s21_grep.c:  } else if (grep_flags->ill_e =='e') {
+s21_grep.c:    if (!grep_flags->s) {
+s21_grep.c:      count++;
+s21_grep.c:    }
+s21_grep.c:  } else if (grep_flags->i_f == 'f') {
+s21_grep.c:    if (!grep_flags->s) {
+s21_grep.c:      count++;
+s21_grep.c:    }
+s21_grep.c:  }
+s21_grep.c:  return count;
+s21_grep.c:}
+s21_grep.c:
+s21_grep.h:#ifndef SRC_GREP_S21_GREP_H_
+s21_grep.h:typedef struct pattern_list {
+s21_grep.h:    struct pattern_list *next;
+s21_grep.h:} pattern_list;
+s21_grep.h:
+s21_grep.h:typedef struct grep_flags {
+s21_grep.h:} grep_flags;
+s21_grep.h:
+s21_grep.h:typedef struct counters {
+s21_grep.h:    size_t size;
+s21_grep.h:    ssize_t read, read_next;
+s21_grep.h:} counters;
+s21_grep.h:
+s21_grep.h:typedef struct pars {
+s21_grep.h:    size_t size;
+s21_grep.h:    ssize_t read;
+s21_grep.h:} pars;
+s21_grep.h:#endif  //  SRC_GREP_S21_GREP_H_
