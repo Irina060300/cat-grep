@@ -41,7 +41,7 @@ int compile_pattrn(struct options *opt, pattr *list, char *line) {
       if (0 < count) {
         cnt_p_in_l++;
       }
-      flag_o(re, count, opt, ovector, line);
+      //flag_o(re, count, opt, ovector, line);
     }
     pcre_free((void *)re);
   }
@@ -66,11 +66,22 @@ void flag_l(int cnt_if_l, struct options *opt, char *file_name) {
   if (0 < cnt_if_l && opt->l) printf("%s\n", file_name);
 }
 
-void flag_o(pcre *re, int count, struct options *opt, int *ovector,
-            char *line) {
-  int idx_s = ovector[0];
-  int idx_end = ovector[1];
-  if (0 < count && opt->o && !opt->v && !opt->c) {
+void flag_o(struct options *opt, char *line, pattr *list) {
+  pcre *re;
+  int options = 0, count = 0;
+  int erroffset;
+  const char *error;
+  for (; list != NULL; list = list->next) {
+    if (opt->i) {
+      re = pcre_compile((char *)list->line, PCRE_CASELESS, &error, &erroffset,
+                        NULL);
+    } else {
+      re = pcre_compile((char *)list->line, options, &error, &erroffset, NULL);
+    }
+      int ovector[30];
+      count = pcre_exec(re, NULL, (char *)line, strlen(line), 0, 0, ovector, 30);
+    int idx_s = ovector[0];
+    int idx_end = ovector[1];
     while (0 < count) {
       for (; idx_s < idx_end; idx_s++) {
         printf("%c", line[idx_s]);
@@ -200,33 +211,55 @@ void read_lines(FILE *fl, struct options *opt, pattr *list, int cnt_files,
   size_t len = 0;
   ssize_t read;
   fseek(fl, 0, SEEK_SET);
+  if (opt->v) opt->o = 0;
   while ((read = getline(&line, &len, fl)) != -1) {
     int count = compile_pattrn(opt, list, line);
-    if (0 < count && (!opt->c && !opt->l && !opt->o)) {  // && !opt->o
-      if (1 < cnt_files && !opt->h) {
+    if (0 < count && !(opt->c || opt->l)) {
+       if (1 < cnt_files && !opt->h) {
         printf("%s:", file_name);
       }
       if (opt->n) {
         printf("%d:", cnt_line);
       }
-      printf("%s", line);
-    } else if (0 < count && (opt->c || opt->l)) {
+      if ((opt->v && opt->o) || !opt->o) {
+        printf("%s", line);
+      } else {
+        flag_o(opt, line, list);
+      }
+    } else if (0 < count){
       cnt_if_c++;
       cnt_if_l = 1;
-    }
-    if (0 > count && opt->v && !opt->c && !opt->o) {
-      if (1 < cnt_files && !opt->h) {
-        printf("%s:", file_name);
-      }
-      if (opt->n) {
-        printf("%d:", cnt_line);
-      }
-      printf("ерш %s", line);
     }
     if (0 < count && opt->v && !opt->l && !opt->c) {
       print_last(count, cnt_line, cnt_file_line);
     }
     cnt_line++;
+
+    // if (0 < count && (!opt->c && !opt->l && !opt->o)) {  // && !opt->o
+    //   if (1 < cnt_files && !opt->h) {
+    //     printf("%s:", file_name);
+    //   }
+    //   if (opt->n) {
+    //     printf("%d:", cnt_line);
+    //   }
+    //   printf("%s", line);
+    // } else if (0 < count && (opt->c || opt->l)) {
+    //   cnt_if_c++;
+    //   cnt_if_l = 1;
+    // }
+    // if (0 > count && opt->v && !opt->c && !opt->o) {
+    //   if (1 < cnt_files && !opt->h) {
+    //     printf("%s:", file_name);
+    //   }
+    //   if (opt->n) {
+    //     printf("%d:", cnt_line);
+    //   }
+    //   printf(" %s", line);
+    // }
+   // if (0 < count && opt->v && !opt->l && !opt->c) {
+    //   print_last(count, cnt_line, cnt_file_line);
+    // }
+    // cnt_line++;
   }
   if (opt->c && opt->l) {
     flag_c(cnt_files, cnt_if_l, opt, file_name);
