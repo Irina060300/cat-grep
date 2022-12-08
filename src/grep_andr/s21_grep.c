@@ -29,11 +29,6 @@ int compile_pattrn(struct options *opt, pattr *list, char *line) {
     } else {
       re = pcre_compile((char *)list->line, options, &error, &erroffset, NULL);
     }
-    if (!re) {
-      if (!opt->s) {
-        fprintf(stderr, "error pattrn\n");
-      }
-    } else {
       count = 0;
       int ovector[30];
       count =
@@ -42,7 +37,6 @@ int compile_pattrn(struct options *opt, pattr *list, char *line) {
         cnt_p_in_l++;
       }
       //flag_o(re, count, opt, ovector, line);
-    }
     pcre_free((void *)re);
   }
   if (cnt_p_in_l && opt->v) {
@@ -71,7 +65,10 @@ void flag_o(struct options *opt, char *line, pattr *list) {
   int options = 0, count = 0;
   int erroffset;
   const char *error;
+  int cursor;
+  cursor = 0;
   for (; list != NULL; list = list->next) {
+    char *print_pat = malloc(sizeof(strlen(list->line)));
     if (opt->i) {
       re = pcre_compile((char *)list->line, PCRE_CASELESS, &error, &erroffset,
                         NULL);
@@ -79,19 +76,25 @@ void flag_o(struct options *opt, char *line, pattr *list) {
       re = pcre_compile((char *)list->line, options, &error, &erroffset, NULL);
     }
       int ovector[30];
-      count = pcre_exec(re, NULL, (char *)line, strlen(line), 0, 0, ovector, 30);
-    int idx_s = ovector[0];
-    int idx_end = ovector[1];
-    while (0 < count) {
-      for (; idx_s < idx_end; idx_s++) {
-        printf("%c", line[idx_s]);
+      int idx_s;
+      int idx_end;
+      count = 1;
+      while (cursor < (int)strlen(line) && 0 < count) {
+        count = pcre_exec(re, NULL, line + cursor, strlen(line), 0, 0, ovector, 30);
+        if (0 < count) {
+          int i = 0;
+          idx_s = ovector[0];
+          idx_end = ovector[1];
+          for (; idx_s < idx_end; idx_s++) {
+              print_pat[i++] = line[idx_s + cursor];
+          }
+          print_pat[i] = '\0';
+          printf("%s\n", print_pat);
+          cursor += idx_end;
+        }
       }
-      printf("%c", '\n');
-      count = pcre_exec(re, NULL, (char *)line, strlen(line), idx_end, 0,
-                        ovector, 30);
-      idx_s = ovector[0];
-      idx_end = ovector[1];
-    }
+      pcre_free((void *)re);
+      free(print_pat);
   }
 }
 
@@ -230,7 +233,7 @@ void read_lines(FILE *fl, struct options *opt, pattr *list, int cnt_files,
       cnt_if_c++;
       cnt_if_l = 1;
     }
-    if (0 < count && opt->v && !opt->l && !opt->c) {
+    if (0 < count && !opt->l && !opt->c && line[read - 1] != '\n' && (!opt->o || (opt->o && opt->v))) {
       print_last(count, cnt_line, cnt_file_line);
     }
     cnt_line++;
