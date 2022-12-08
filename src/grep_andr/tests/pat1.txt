@@ -1,0 +1,6 @@
+include
+inc
+char
+pattern
+pat
+main
