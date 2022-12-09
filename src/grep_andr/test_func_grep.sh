@@ -45,7 +45,7 @@ testing()
 {
     t=$(echo $@ | sed "s/VAR/$var/")
     ./s21_grep $t > test_s21_grep.log
-    grep $t > test_sys_grep.log
+    ./grep $t > test_sys_grep.log
     DIFF_RES="$(diff -s test_s21_grep.log test_sys_grep.log)"
     (( COUNTER++ ))
     if [ "$DIFF_RES" == "Files test_s21_grep.log and test_sys_grep.log are identical" ]
