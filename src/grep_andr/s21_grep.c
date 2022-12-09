@@ -237,32 +237,6 @@ void read_lines(FILE *fl, struct options *opt, pattr *list, int cnt_files,
       print_last(count, cnt_line, cnt_file_line);
     }
     cnt_line++;
-
-    // if (0 < count && (!opt->c && !opt->l && !opt->o)) {  // && !opt->o
-    //   if (1 < cnt_files && !opt->h) {
-    //     printf("%s:", file_name);
-    //   }
-    //   if (opt->n) {
-    //     printf("%d:", cnt_line);
-    //   }
-    //   printf("%s", line);
-    // } else if (0 < count && (opt->c || opt->l)) {
-    //   cnt_if_c++;
-    //   cnt_if_l = 1;
-    // }
-    // if (0 > count && opt->v && !opt->c && !opt->o) {
-    //   if (1 < cnt_files && !opt->h) {
-    //     printf("%s:", file_name);
-    //   }
-    //   if (opt->n) {
-    //     printf("%d:", cnt_line);
-    //   }
-    //   printf(" %s", line);
-    // }
-   // if (0 < count && opt->v && !opt->l && !opt->c) {
-    //   print_last(count, cnt_line, cnt_file_line);
-    // }
-    // cnt_line++;
   }
   if (opt->c && opt->l) {
     flag_c(cnt_files, cnt_if_l, opt, file_name);
