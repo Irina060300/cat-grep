@@ -13,7 +13,7 @@ void create(pattr **pat, char *data) {
 }
 
 void push_back(pattr *pat, char *data) {
-  pattr *new;
+  pattr *new = NULL;
   create(&new, data);
   pattr *cur = pat;
   while (NULL != cur->next) {

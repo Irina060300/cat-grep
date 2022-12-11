@@ -795,6 +795,7 @@ void print_last(int count, int cnt_line, int cnt_file_line) {
 void read_from_f(pattr **pat, pattr *files) {
   while (files) {
     if (255 < strlen(files->line)) {
+      release(files);
       fprintf(stderr, "grep: %s: File name too long\n", files->line);
       exit(1);
     } else {
@@ -809,11 +810,13 @@ void read_from_f(pattr **pat, pattr *files) {
             patr[read - 1] = '\0';
           }
           check_pattr(pat, patr);
+          free(patr);
         }
         free(l);
         fclose(fl);
       } else {
         fprintf(stderr, "grep: %s: No such file or directory\n", files->line);
+        release(files);
         exit(1);
       }
       files = files->next;
